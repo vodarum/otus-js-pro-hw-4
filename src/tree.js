@@ -5,7 +5,9 @@ const path = require("path");
   const dirnameByPath = path.dirname(pathToDir);
   const tree = { files: [], folders: [] };
   const growTree = async (p) => {
-    if (path.extname(p)) {
+    const pInfo = await fs.stat(p);
+
+    if (pInfo.isFile()) {
       tree.files.push(path.relative(dirnameByPath, p));
       return;
     }
